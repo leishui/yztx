@@ -1,13 +1,11 @@
 package com.example.yztx.domain;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Test {
+public class ResourceLabels {
     @Id
-    private Long id;
-    private String name;
-    private String pwd;
+    public long resource_id;
+    public String resource_label;
 }

@@ -1,13 +1,12 @@
 package com.example.yztx.domain;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Test {
+public class UserFan {
     @Id
-    private Long id;
-    private String name;
-    private String pwd;
+    public long id;
+    public long user_id;
+    public long fan_id;
 }
