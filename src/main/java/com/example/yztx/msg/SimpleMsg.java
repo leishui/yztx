@@ -2,12 +2,12 @@ package com.example.yztx.msg;
 
 public class SimpleMsg {
     private int status;
-    private String msg;
+    private Object msg;
 
     public SimpleMsg() {
     }
 
-    public SimpleMsg(int status, String msg) {
+    public SimpleMsg(int status, Object msg) {
         this.status = status;
         this.msg = msg;
     }
@@ -20,11 +20,11 @@ public class SimpleMsg {
         this.status = status;
     }
 
-    public String getMsg() {
+    public Object getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(Object msg) {
         this.msg = msg;
     }
 }
