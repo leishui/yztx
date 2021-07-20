@@ -1,6 +1,8 @@
 package com.example.yztx.controller;
 
+import com.example.yztx.constant.DefaultValues;
 import com.example.yztx.constant.StatusType;
+import com.example.yztx.constant.UserIdentity;
 import com.example.yztx.domain.User;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.UserService;
@@ -21,45 +23,62 @@ public class UserController {
     private RedisUtils redisUtils;
 
 
+    /**
+     * 注册
+     *
+     * @param account  账号
+     * @param password 密码
+     * @param phone    手机号
+     * @param code     验证码
+     * @return SimpleMsg
+     */
     @PostMapping(path = "/user/sign_in")
-    String sign_in(@RequestParam(value = "account") String account,
-                   @RequestParam(value = "password") String password,
-                   @RequestParam(value = "phone") int phone,
-                   @RequestParam(value = "code") int code) {
-        if (code == 1111) {
+    SimpleMsg sign_in(@RequestParam(value = "account") String account,
+                      @RequestParam(value = "password") String password,
+                      @RequestParam(value = "phone") int phone,
+                      @RequestParam(value = "code") int code) {
+        String s = redisUtils.get(String.valueOf(phone));
+        if (s == null) return new SimpleMsg(StatusType.FAILED, "注册失败：验证码失效");
+        if (code == Integer.parseInt(s)) {
             User user = new User();
             user.account = account;
             user.password = password;
             user.phone = phone;
-            user.avatar_url = "1";
-            user.identity = 1;
+            user.avatar_url = DefaultValues.DEFAULT_AVATAR;
+            user.identity = UserIdentity.NORMAL;
             user.user_name = "用户" + account;
             if (userService.save(user)) {
-                return "1";
+                return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功");
             } else
-                return "0";
+                return new SimpleMsg(StatusType.ERROR_MYSQL, "注册失败");
         }
-        return "0";
+        return new SimpleMsg(StatusType.FAILED, "注册失败：验证码错误");
     }
 
     /**
      * 获取验证码
+     *
      * @param phone 手机号
+     * @return SimpleMsg
      */
     @GetMapping(path = "/user/get_code")
-    SimpleMsg get_code(@RequestParam(value = "phone") int phone){
+    SimpleMsg get_code(@RequestParam(value = "phone") int phone) {
         SimpleMsg msg = new SimpleMsg();
         if (redisUtils == null) redisUtils = new RedisUtils();
         String code = Utils.generateVerificationCode();
         try {
-            redisUtils.add(String.valueOf(phone),code);
-        }catch (Exception e){
+            redisUtils.add(String.valueOf(phone), code);
+        } catch (Exception e) {
             msg.setStatus(StatusType.ERROR_REDIS);
             msg.setMsg("redis数据插入失败");
             return msg;
         }
         msg.setStatus(StatusType.SUCCESSFUL);
-        msg.setMsg("验证码获取成功");
+        msg.setMsg(code);
         return msg;
     }
+
+    //账号登录
+    //手机号登录
+    //获取用户信息
 }
