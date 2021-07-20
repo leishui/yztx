@@ -10,7 +10,7 @@ public interface UserRepository extends CrudRepository<User,Long> {
     User findUserByPhoneAndPassword(int phone,String password);
     //查询账号是否已存在
     Boolean existsUserByAccount(String account);
-    //查询手机号是否已被绑定
+    //查询手机号、账号是否已被绑定
     User findUserByPhone(int phone);
     User findUserByAccount(String account);
 }

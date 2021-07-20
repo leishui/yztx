@@ -25,22 +25,23 @@ public class UserService {
         return userRepository.findById(userId);
     }
 
+    //账号登录
     public User getLoginAccount(String account, String password){
         return userRepository.findUserByAccountAndPassword(account,password);
     }
-
+    //手机号登录
     public User getLoginPhone(int phone, String password){
         return userRepository.findUserByPhoneAndPassword(phone,password);
     }
-
-    public Boolean isSaved(String account){
+    //判断账号是否存在
+    public Boolean isAccountSaved(String account){
         return userRepository.existsUserByAccount(account);
     }
-
+    //通过账号获取用户信息
     public User getByAccount(String account){
         return userRepository.findUserByAccount(account);
     }
-
+    //通过手机号获取用户信息
     public User getByPhone(int phone){
         return userRepository.findUserByPhone(phone);
     }

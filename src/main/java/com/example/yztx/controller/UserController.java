@@ -41,7 +41,7 @@ public class UserController {
         String s = redisUtils.get(String.valueOf(phone));
         if (s == null) return new SimpleMsg(StatusType.FAILED, "注册失败：验证码失效");
         if (code == Integer.parseInt(s)) {
-            if (userService.isSaved(account))
+            if (userService.isAccountSaved(account))
                 return new SimpleMsg(StatusType.FAILED, "注册失败：账号已存在");
             User user = new User();
             user.account = account;
