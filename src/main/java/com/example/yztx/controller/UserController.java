@@ -17,7 +17,6 @@ import javax.annotation.Resource;
 
 @RestController
 public class UserController {
-
     @Resource
     private UserService userService;
     private RedisUtils redisUtils;
