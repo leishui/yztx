@@ -24,13 +24,19 @@ public class UserController {
 
 
     /**
-     * 注册
-     *
-     * @param account  账号
-     * @param password 密码
-     * @param phone    手机号
-     * @param code     验证码
-     * @return SimpleMsg
+     * showdoc
+     * @catalog 与子同行/用户
+     * @title 注册
+     * @description 用户注册
+     * @method post
+     * @url user/sign_in
+     * @param account  必选 String 账号
+     * @param password 必选 String 密码
+     * @param phone    必选 int 手机号
+     * @param code     必选 int 验证码
+     * @return {"status":200,"msg":"注册成功"}
+     * @return_param status int 成功与否
+     * @return_param msg String 成功则返回注册成功，失败则返回失败原因
      */
     @PostMapping(path = "/user/sign_in")
     SimpleMsg sign_in(@RequestParam(value = "account") String account,
@@ -59,10 +65,17 @@ public class UserController {
     }
 
     /**
-     * 账号登录
-     * @param account 账号
-     * @param password 密码
-     * @return 是否成功
+     * showdoc
+     * @catalog 与子同行/用户
+     * @title 账号登录
+     * @description 账号登录
+     * @method post
+     * @url user/login_by_account
+     * @param account 必选 String 账号
+     * @param password 必选 String 密码
+     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
+     * @return_param status int 成功与否
+     * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @PostMapping(path = "/user/login_by_account")
     SimpleMsg loginByAcc(@RequestParam(value = "account") String account,
@@ -73,10 +86,17 @@ public class UserController {
     }
 
     /**
-     * 手机号登录
-     * @param phone 手机号
-     * @param password 密码
-     * @return 是否成功
+     * showdoc
+     * @catalog 与子同行/用户
+     * @title 手机号登录
+     * @description 手机号登录
+     * @method post
+     * @url user/login_by_phone
+     * @param phone 必选 int 手机号
+     * @param password 必选 String 密码
+     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
+     * @return_param status int 成功与否
+     * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @PostMapping(path = "/user/login_by_phone")
     SimpleMsg loginByAcc(@RequestParam(value = "phone") int phone,
@@ -87,10 +107,17 @@ public class UserController {
     }
 
     /**
-     * 获取验证码
-     *
-     * @param phone 手机号
-     * @return SimpleMsg
+     * showdoc
+     * @catalog 与子同行/用户
+     * @title 获取验证码
+     * @description 通过手机号获取验证码
+     * @method get
+     * @url /user/get_code
+     * @param phone 必选 int 手机号
+     * @return {"status":200,"msg":"259311"}
+     * @return_param status int 成功与否
+     * @return_param msg String 成功则返回验证码，失败则返回失败原因
+     * @remark 验证码有效时间60秒
      */
     @GetMapping(path = "/user/get_code")
     SimpleMsg getCode(@RequestParam(value = "phone") int phone) {
@@ -111,10 +138,18 @@ public class UserController {
         return msg;
     }
 
+
     /**
-     * 获取用户信息
-     * @param id 所需id
-     * @return 是否存在
+     * showdoc
+     * @catalog 与子同行/用户
+     * @title 获取用户信息
+     * @description 通过用户id获取用户信息
+     * @method get
+     * @url /user/get_info
+     * @param id 必选 Long 用户id
+     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
+     * @return_param status int 成功与否
+     * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @GetMapping(path = "/user/get_info")
     SimpleMsg getInfo(@RequestParam(value = "id") Long id){
