@@ -26,6 +26,7 @@ create table user
 create table lesson
 (
     lesson_id bigint auto_increment,
+    name varchar(255) not null,
     description varchar(255) not null,
     uploader_id bigint not null,
     cover_url varchar(255) not null,
