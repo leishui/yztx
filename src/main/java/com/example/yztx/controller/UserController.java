@@ -157,7 +157,6 @@ public class UserController {
             return new SimpleMsg(StatusType.SUCCESSFUL,userService.getUserById(id).get());
         return new SimpleMsg(StatusType.FAILED,"用户不存在");
     }
-    //账号登录
-    //手机号登录
-    //获取用户信息
+
+
 }

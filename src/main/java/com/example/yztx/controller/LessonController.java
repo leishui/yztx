@@ -14,6 +14,7 @@ import java.io.*;
 
 @RestController
 public class LessonController {
+
     @ResponseBody
     @PostMapping(value = "/lesson/upload_lesson")
     public SimpleMsg fileUpload(@RequestParam("uploadFile") MultipartFile file) {
