@@ -4,10 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+public
 class Lesson
 {
     @Id
     public long lesson_id;
+    public String name;
     public String description;
     public long uploader_id;
     public String cover_url;
