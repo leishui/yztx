@@ -9,7 +9,7 @@ create table user
     user_name varchar(255) not null,
     account varchar(255) not null,
     password varchar(255) not null,
-    phone int not null,
+    phone bigint not null,
     identity int not null,
     avatar_url varchar(255) not null,
     email varchar(255),
@@ -124,4 +124,12 @@ create table statistics
     date date not null,
     constraint statistics_pk
         primary key (statistics_id)
+);
+# 资源表
+create table resource
+(
+    id bigint auto_increment,
+    url varchar(255) not null,
+    constraint resource_pk
+        primary key (id)
 );
