@@ -10,7 +10,7 @@ public class User {
     public String user_name;
     public String account;
     public String password;
-    public int phone;
+    public long phone;
     public int identity;
     public String avatar_url;
     public String email;

@@ -30,7 +30,7 @@ public class UserService {
         return userRepository.findUserByAccountAndPassword(account,password);
     }
     //手机号登录
-    public User getLoginPhone(int phone, String password){
+    public User getLoginPhone(long phone, String password){
         return userRepository.findUserByPhoneAndPassword(phone,password);
     }
     //判断账号是否存在
@@ -42,7 +42,7 @@ public class UserService {
         return userRepository.findUserByAccount(account);
     }
     //通过手机号获取用户信息
-    public User getByPhone(int phone){
+    public User getByPhone(long phone){
         return userRepository.findUserByPhone(phone);
     }
 

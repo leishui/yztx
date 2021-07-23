@@ -41,7 +41,7 @@ public class UserController {
     @PostMapping(path = "/user/sign_in")
     SimpleMsg sign_in(@RequestParam(value = "account") String account,
                       @RequestParam(value = "password") String password,
-                      @RequestParam(value = "phone") int phone,
+                      @RequestParam(value = "phone") long phone,
                       @RequestParam(value = "code") int code) {
         if (redisUtils == null) redisUtils = new RedisUtils();
         String s = redisUtils.get(String.valueOf(phone));
@@ -99,7 +99,7 @@ public class UserController {
      * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @PostMapping(path = "/user/login_by_phone")
-    SimpleMsg loginByAcc(@RequestParam(value = "phone") int phone,
+    SimpleMsg loginByAcc(@RequestParam(value = "phone") long phone,
                          @RequestParam(value = "password") String password) {
         return (userService.getLoginPhone(phone, password) != null) ?
                 new SimpleMsg(StatusType.SUCCESSFUL, userService.getByPhone(phone)) :
@@ -120,7 +120,7 @@ public class UserController {
      * @remark 验证码有效时间60秒
      */
     @GetMapping(path = "/user/get_code")
-    SimpleMsg getCode(@RequestParam(value = "phone") int phone) {
+    SimpleMsg getCode(@RequestParam(value = "phone") long phone) {
         SimpleMsg msg = new SimpleMsg();
         if (userService.getByPhone(phone)!=null)
             return new SimpleMsg(StatusType.FAILED,"手机号已被使用");
