@@ -25,12 +25,12 @@ public class LessonController {
      * @param cover       可选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param lesson_type 必选 Long 课程分类
-     * @return {"status":200,"msg":1}
+     * @return {"status":200,"msg":"存储成功"}
      * @catalog 与子同行/课程
-     * @title 更新课程信息
-     * @description 更新课程信息
+     * @title 上传课程
+     * @description 上传课程
      * @method post
-     * @url lesson/update_info
+     * @url lesson/upload
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回存储成功，失败则返回失败原因
      */
@@ -63,7 +63,7 @@ public class LessonController {
      * @param cover       可选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param lesson_type 必选 Long 课程分类
-     * @return {"status":200,"msg":1}
+     * @return {"status":200,"msg":"存储成功"}
      * @catalog 与子同行/课程
      * @title 更新课程信息
      * @description 更新课程信息

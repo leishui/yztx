@@ -32,7 +32,7 @@ public class UserController {
      * @url user/sign_in
      * @param account  必选 String 账号
      * @param password 必选 String 密码
-     * @param phone    必选 int 手机号
+     * @param phone    必选 Long 手机号
      * @param code     必选 int 验证码
      * @return {"status":200,"msg":"注册成功"}
      * @return_param status int 成功与否
@@ -92,7 +92,7 @@ public class UserController {
      * @description 手机号登录
      * @method post
      * @url user/login_by_phone
-     * @param phone 必选 int 手机号
+     * @param phone 必选 Long 手机号
      * @param password 必选 String 密码
      * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @return_param status int 成功与否
@@ -113,7 +113,7 @@ public class UserController {
      * @description 通过手机号获取验证码
      * @method get
      * @url /user/get_code
-     * @param phone 必选 int 手机号
+     * @param phone 必选 Long 手机号
      * @return {"status":200,"msg":"259311"}
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回验证码，失败则返回失败原因
