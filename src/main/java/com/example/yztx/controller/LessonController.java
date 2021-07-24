@@ -45,7 +45,7 @@ public class LessonController {
                                 @RequestParam("lesson_type") Long lesson_type) {
         Lesson lesson = new Lesson();
         lesson.name = name;
-        lesson.resource_url = DefaultValues.DEFAULT_RESOURCE_SERVER + up_id + "?name=" + lessonService.getUrl(res_id);
+        lesson.resource_url = DefaultValues.DEFAULT_RESOURCE_SERVER + "?id=" + up_id + "&name=" + lessonService.getUrl(res_id);
         lesson.uploader_id = up_id;
         lesson.description = des;
         lesson.cover_url = cover;

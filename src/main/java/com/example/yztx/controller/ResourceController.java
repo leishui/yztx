@@ -37,12 +37,12 @@ public class ResourceController {
      * @catalog 与子同行/文件资源
      * @title 获取文件
      * @description 通过上传者id和文件名获取文件
-     * @method post
+     * @method get
      * @url resource/get
      * @param id 必选 Long 上传者id
      * @param name 必选 String 文件名
      */
-    @PostMapping(value = "/resource/get")
+    @GetMapping(value = "/resource/get")
     @ResponseBody
     public void getLesson(HttpServletResponse response,
                    @RequestParam("id") String id,
