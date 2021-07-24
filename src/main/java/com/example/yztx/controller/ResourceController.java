@@ -1,5 +1,6 @@
 package com.example.yztx.controller;
 
+import com.example.yztx.constant.Paths;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.ResourceService;
 import com.example.yztx.utils.FileUtils;
@@ -7,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 
 @RestController
 public class ResourceController {
@@ -45,9 +48,12 @@ public class ResourceController {
     @GetMapping(value = "/resource/get")
     @ResponseBody
     public void getLesson(HttpServletResponse response,
+                   HttpServletRequest request,
                    @RequestParam("id") String id,
                    @RequestParam("name") String name) {
-        FileUtils.getFile(id, name, response);
+        File file = new File(Paths.LESSON_PATH + id + "/" + name);
+        FileUtils.getFile(file,response,request);
+        //FileUtils.getFile(id, name, response);
     }
 
 }
