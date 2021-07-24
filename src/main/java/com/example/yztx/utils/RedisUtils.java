@@ -6,7 +6,7 @@ import redis.clients.jedis.Jedis;
 @Service
 public class RedisUtils {
 
-    private final Jedis jedis = new Jedis("118.178.178.211");
+    private final Jedis jedis = new Jedis("127.0.0.1");
 
     public void add(String key, String value) {
         jedis.set(key, value);

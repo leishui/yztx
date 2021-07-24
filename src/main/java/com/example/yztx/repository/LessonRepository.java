@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 public interface LessonRepository extends CrudRepository<Lesson,Long> {
-    @Query("SELECT max(lesson_id) from Lesson ")
-    Long getMaxId();
+    //通过id获取资源文件名
+    @Query("SELECT url FROM Resource where id=:id")
+    String getUrl(Long id);
 }

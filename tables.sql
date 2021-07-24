@@ -130,6 +130,7 @@ create table resource
 (
     id bigint auto_increment,
     url varchar(255) not null,
+    up_id bigint not null,
     constraint resource_pk
         primary key (id)
 );

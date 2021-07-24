@@ -17,17 +17,10 @@ public class LessonService {
     public SimpleMsg save(Lesson lesson) {
         try {
             lessonRepository.save(lesson);
-            return new SimpleMsg(StatusType.SUCCESSFUL, getCount());
+            return new SimpleMsg(StatusType.SUCCESSFUL, "存储成功");
         } catch (Exception e) {
             return new SimpleMsg(StatusType.ERROR_MYSQL, "上传失败，数据库错误");
         }
-    }
-
-    //获取下一个的id
-    public Long getCount() {
-        Long maxId = lessonRepository.getMaxId();
-        if (maxId == null) return 1L;
-        return maxId;
     }
 
     //通过id获取Lesson
@@ -35,6 +28,10 @@ public class LessonService {
         if (lessonRepository.findById(id).isPresent())
             return lessonRepository.findById(id).get();
         return null;
+    }
+
+    public String getUrl(Long resId) {
+        return lessonRepository.getUrl(resId);
     }
 
 }

@@ -6,6 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Resource {
     @Id
-    long id;
-    String url;
+    public long id;
+    public String url;
+    public long up_id;
 }
