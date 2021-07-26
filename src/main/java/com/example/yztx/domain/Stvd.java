@@ -5,6 +5,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Stvd {
+
     @Id
     public long stvd_id;
     public String title;
