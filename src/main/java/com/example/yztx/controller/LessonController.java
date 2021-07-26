@@ -19,10 +19,10 @@ public class LessonController {
      * showdoc
      *
      * @param name        必选 String 课程名
-     * @param res_id      必选 Long 对应文件资源id
+     * @param res_url     必选 String 对应文件资源url
      * @param up_id       必选 Long 上传者id
      * @param des         必选 String 课程简介
-     * @param cover       可选 String 封面地址
+     * @param cover       必选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param lesson_type 必选 Long 课程分类
      * @return {"status":200,"msg":"存储成功"}
@@ -36,21 +36,22 @@ public class LessonController {
      */
     @PostMapping(value = "/lesson/upload")
     @ResponseBody
-    public SimpleMsg updateInfo(@RequestParam("name") String name,
-                                @RequestParam("res_id") Long res_id,
-                                @RequestParam("up_id") Long up_id,
-                                @RequestParam("des") String des,
-                                @RequestParam(value = "cover", defaultValue = DefaultValues.DEFAULT_COVER) String cover,
-                                @RequestParam("source_type") boolean source_type,
-                                @RequestParam("lesson_type") Long lesson_type) {
+    public SimpleMsg upload(@RequestParam("name") String name,
+                            @RequestParam("res_url") String res_url,
+                            @RequestParam("up_id") Long up_id,
+                            @RequestParam("des") String des,
+                            @RequestParam("cover") String cover,
+                            @RequestParam("source_type") boolean source_type,
+                            @RequestParam("lesson_type") Long lesson_type) {
         Lesson lesson = new Lesson();
         lesson.name = name;
-        lesson.resource_url = DefaultValues.DEFAULT_RESOURCE_SERVER + "?id=" + up_id + "&name=" + lessonService.getUrl(res_id);
+        lesson.resource_url = DefaultValues.DEFAULT_RESOURCE_SERVER + res_url;
         lesson.uploader_id = up_id;
         lesson.description = des;
         lesson.cover_url = cover;
         lesson.source_type = source_type;
         lesson.lesson_type = lesson_type;
+        lesson.upload_time = System.currentTimeMillis() / 1000;
         return lessonService.save(lesson);
     }
 
@@ -59,8 +60,9 @@ public class LessonController {
      *
      * @param name        必选 String 课程名
      * @param id          必选 Long 课程id
+     * @param res_url     必选 String 资源url
      * @param des         必选 String 课程简介
-     * @param cover       可选 String 封面地址
+     * @param cover       必选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param lesson_type 必选 Long 课程分类
      * @return {"status":200,"msg":"存储成功"}
@@ -76,17 +78,20 @@ public class LessonController {
     @ResponseBody
     public SimpleMsg updateInfo(@RequestParam("name") String name,
                                 @RequestParam("id") Long id,
+                                @RequestParam("res_url") String res_url,
                                 @RequestParam("des") String des,
-                                @RequestParam(value = "cover", defaultValue = DefaultValues.DEFAULT_COVER) String cover,
+                                @RequestParam("cover") String cover,
                                 @RequestParam("source_type") boolean source_type,
                                 @RequestParam("lesson_type") Long lesson_type) {
         Lesson lesson = lessonService.getById(id);
         lesson.lesson_id = id;
         lesson.name = name;
+        lesson.resource_url = res_url;
         lesson.description = des;
         lesson.cover_url = cover;
         lesson.source_type = source_type;
         lesson.lesson_type = lesson_type;
+        lesson.upload_time = System.currentTimeMillis() / 1000;
         return lessonService.save(lesson);
     }
 

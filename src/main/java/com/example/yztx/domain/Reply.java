@@ -11,7 +11,7 @@ public class Reply {
     public String reply_content;
     public String reply_father;
     public String reply_time;
-    public long reply_likenum;
+    public long like_count;
     public long replier_id;
     public String replier_name;
     public String replier_url;

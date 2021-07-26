@@ -12,6 +12,6 @@ public class Resource {
 
     @Override
     public String toString() {
-        return up_id + "/" + url;
+        return "?id=" + up_id + "&name=" + url;
     }
 }

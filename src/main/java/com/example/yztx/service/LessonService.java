@@ -30,8 +30,4 @@ public class LessonService {
         return null;
     }
 
-    public String getUrl(Long resId) {
-        return lessonRepository.getUrl(resId);
-    }
-
 }

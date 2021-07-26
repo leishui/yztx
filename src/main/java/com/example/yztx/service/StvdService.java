@@ -17,17 +17,10 @@ public class StvdService {
     public SimpleMsg save(Stvd stvd) {
         try {
             stvdRepository.save(stvd);
-            return new SimpleMsg(StatusType.SUCCESSFUL, getCount());
+            return new SimpleMsg(StatusType.SUCCESSFUL, "存储成功");
         } catch (Exception e) {
             return new SimpleMsg(StatusType.ERROR_MYSQL, "上传失败，数据库错误");
         }
-    }
-
-    //获取下一个的id
-    public Long getCount() {
-        Long maxId = stvdRepository.getMaxId();
-        if (maxId == null) return 1L;
-        return maxId;
     }
 
     //通过id获取Stvd
@@ -35,8 +28,5 @@ public class StvdService {
          if (stvdRepository.findById(id).isPresent())
             return stvdRepository.findById(id).get();
         return null;
-    }
-
-    public String getUrl(Long id) { return stvdRepository.getUrl(id);
     }
 }
