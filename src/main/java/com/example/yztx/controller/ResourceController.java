@@ -28,11 +28,11 @@ public class ResourceController {
      * @param up_id 必选 Long 上传者id
      * @return {"status":200,"msg":1}
      * @return_param status int 成功与否
-     * @return_param msg String 成功则返回文件资源id，失败则返回失败原因
+     * @return_param msg String 成功则返回文件资源url，失败则返回失败原因
      */
     @PostMapping(value = "/resource/upload")
     @ResponseBody
-    public SimpleMsg uploadLesson(@RequestParam("file") MultipartFile file, @RequestParam("up_id") Long up_id) {
+    public SimpleMsg uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("up_id") Long up_id) {
         return FileUtils.uploadFile(file,up_id,resourceService);
     }
     /**
@@ -47,7 +47,7 @@ public class ResourceController {
      */
     @GetMapping(value = "/resource/get")
     @ResponseBody
-    public void getLesson(HttpServletResponse response,
+    public void getFile(HttpServletResponse response,
                    HttpServletRequest request,
                    @RequestParam("id") String id,
                    @RequestParam("name") String name) {

@@ -104,7 +104,7 @@ public class FileUtils {
                 file.transferTo(tmp);
             }
             resource.up_id = up_id;
-            resource.url = file.getOriginalFilename();
+            resource.url = orRenameFile.getName();
             return resourceService.save(resource);
         } catch (IOException e) {
             msg.setStatus(StatusType.FAILED);

@@ -16,7 +16,7 @@ public class ResourceService {
     public SimpleMsg save(com.example.yztx.domain.Resource resource) {
         try {
             resourceRepository.save(resource);
-            return new SimpleMsg(StatusType.SUCCESSFUL, getCount());
+            return new SimpleMsg(StatusType.SUCCESSFUL, resource.toString());
         } catch (Exception e) {
             return new SimpleMsg(StatusType.ERROR_MYSQL, "上传失败，数据库错误");
         }
