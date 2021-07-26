@@ -59,7 +59,7 @@ create table post
 (
     post_id bigint auto_increment,
     post_name varchar(255) not null,
-    post_content varchar(255) not null,
+    post_content text not null,
     uploader_id bigint not null,
     source_type bool not null,
     view_count bigint default 0 not null,
