@@ -4,8 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public
-class Lesson
+public class Lesson
 {
     @Id
     public long lesson_id;

@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Post {
+public class Post  {
     @Id
     public long post_id;
     public String post_name;
