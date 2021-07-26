@@ -62,7 +62,7 @@ public class StvdController {
         stvd.cover_url = cover;
         stvd.source_type = source_type;
         stvd.stvd_id = stvd_type;
-        stvd.upload_time = System.currentTimeMillis() / 1000;
+        stvd.upload_time = Utils.getTimeStamp();
         return stvdService.save(stvd);
     }
 
@@ -101,7 +101,7 @@ public class StvdController {
         stvd.cover_url = cover;
         stvd.source_type = source_type;
         stvd.stvd_type = stvd_type;
-        stvd.upload_time = System.currentTimeMillis() / 1000;
+        stvd.upload_time = Utils.getTimeStamp();
         return stvdService.save(stvd);
     }
 

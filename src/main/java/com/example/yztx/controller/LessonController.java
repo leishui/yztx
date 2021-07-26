@@ -4,6 +4,7 @@ import com.example.yztx.constant.DefaultValues;
 import com.example.yztx.domain.Lesson;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.LessonService;
+import com.example.yztx.utils.Utils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -51,7 +52,7 @@ public class LessonController {
         lesson.cover_url = cover;
         lesson.source_type = source_type;
         lesson.lesson_type = lesson_type;
-        lesson.upload_time = System.currentTimeMillis() / 1000;
+        lesson.upload_time = Utils.getTimeStamp();
         return lessonService.save(lesson);
     }
 
@@ -91,7 +92,7 @@ public class LessonController {
         lesson.cover_url = cover;
         lesson.source_type = source_type;
         lesson.lesson_type = lesson_type;
-        lesson.upload_time = System.currentTimeMillis() / 1000;
+        lesson.upload_time = Utils.getTimeStamp();
         return lessonService.save(lesson);
     }
 
