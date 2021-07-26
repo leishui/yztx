@@ -1,7 +1,5 @@
 package com.example.yztx.controller;
 
-import com.example.yztx.constant.DefaultValues;
-import com.example.yztx.domain.Lesson;
 import com.example.yztx.domain.Post;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.PostService;
@@ -33,11 +31,11 @@ public class PostController {
      * @title 上传贴子
      * @description 上传贴子
      * @method post
-     * @url lesson/upload
+     * @url post/upload
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回存储成功，失败则返回失败原因
      */
-    @PostMapping(value = "/lesson/upload")
+    @PostMapping(value = "/post/upload")
     @ResponseBody
     public SimpleMsg upload(@RequestParam("name") String name,
                             @RequestParam("content") String content,
@@ -67,11 +65,11 @@ public class PostController {
      * @title 更新贴子信息
      * @description 更新贴子信息
      * @method post
-     * @url lesson/update_info
+     * @url post/update_info
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回存储成功，失败则返回失败原因
      */
-    @PostMapping(value = "/lesson/update_info")
+    @PostMapping(value = "/post/update_info")
     @ResponseBody
     public SimpleMsg updateInfo(@RequestParam("name") String name,
                                 @RequestParam("id") Long id,
