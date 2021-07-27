@@ -43,6 +43,41 @@ create table lesson
         primary key (lesson_id)
 );
 /*
+ 评论表
+ */
+
+create table comment
+(
+    comment_id       bigint auto_increment ,
+    comment_content  varchar(255) not null,
+    comment_time     varchar(255) not null,
+    like_count       mediumtext   null,
+    reply_count      mediumtext   null,
+    commentator_id   mediumtext   null,
+    commentator_name varchar(255) null,
+    commentator_url  varchar(255) null,
+    constraint comment_pk
+        primary key(comment_id)
+);
+/*
+ 回复表
+ */
+-- auto-generated definition
+create table reply
+(
+    reply_id      bigint auto_increment,
+    reply_content varchar(255) not null,
+    FatherID      varchar(255) not null,
+    reply_time    varchar(255) not null,
+    like_count    bigint       not null,
+    replier_id    bigint       not null,
+    replier_url   varchar(255) not null,
+    replier_name  bigint       not null,
+    constraint  reply_pk
+        primary key(reply_id)
+);
+
+/*
  资源标签表
  */
 create table resource_labels

@@ -51,7 +51,7 @@ public class ResourceController {
                    HttpServletRequest request,
                    @RequestParam("id") String id,
                    @RequestParam("name") String name) {
-        File file = new File(Paths.LESSON_PATH + id + "/" + name);
+        File file = new File(Paths.DATA_PATH + id + "/" + name);
         FileUtils.getFile(file,response,request);
         //FileUtils.getFile(id, name, response);
     }
