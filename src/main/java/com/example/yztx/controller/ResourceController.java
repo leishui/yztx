@@ -26,7 +26,7 @@ public class ResourceController {
      * @url resource/upload
      * @param file 必选 MultipartFile 所要上传的文件
      * @param up_id 必选 Long 上传者id
-     * @return {"status":200,"msg":1}
+     * @return {"status":200,"msg":"?id=3&name=156532545270.jpeg"}
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回文件资源url，失败则返回失败原因
      */
@@ -51,7 +51,7 @@ public class ResourceController {
                    HttpServletRequest request,
                    @RequestParam("id") String id,
                    @RequestParam("name") String name) {
-        File file = new File(Paths.LESSON_PATH + id + "/" + name);
+        File file = new File(Paths.DATA_PATH + id + "/" + name);
         FileUtils.getFile(file,response,request);
         //FileUtils.getFile(id, name, response);
     }

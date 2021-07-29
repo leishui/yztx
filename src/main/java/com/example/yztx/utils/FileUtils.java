@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 public class FileUtils {
     /**
@@ -64,7 +63,7 @@ public class FileUtils {
      * @param response 不用管
      */
     public static void getFile(String id, String name, HttpServletResponse response) {
-        File file = new File(Paths.LESSON_PATH + id + "/" + name);
+        File file = new File(Paths.DATA_PATH + id + "/" + name);
         try (
                 InputStream in = new FileInputStream(file);
                 ServletOutputStream out = response.getOutputStream()) {
@@ -92,7 +91,7 @@ public class FileUtils {
             return msg;
         }
         try {
-            File tmp = new File(Paths.LESSON_PATH + up_id, Objects.requireNonNull(file.getOriginalFilename()));
+            File tmp = new File(Paths.DATA_PATH + up_id, Objects.requireNonNull(file.getOriginalFilename()));
             if (!tmp.getParentFile().exists()) {
                 if (!tmp.getParentFile().mkdirs()) return new SimpleMsg(StatusType.FAILED, "创建目录失败");
             }

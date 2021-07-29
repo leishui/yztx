@@ -5,18 +5,18 @@ use yztx;
  */
 create table user
 (
-    user_id bigint auto_increment,
-    user_name varchar(255) not null,
-    account varchar(255) not null,
-    password varchar(255) not null,
-    phone bigint not null,
-    identity int not null,
-    avatar_url varchar(255) not null,
-    email varchar(255),
-    wallet bigint default 0 not null,
+    user_id            bigint auto_increment,
+    user_name          varchar(255)     not null,
+    account            varchar(255)     not null,
+    password           varchar(255)     not null,
+    phone              bigint           not null,
+    identity           int              not null,
+    avatar_url         varchar(255)     not null,
+    email              varchar(255),
+    wallet             bigint default 0 not null,
     subscription_count bigint default 0 not null,
-    fan_count bigint default 0 not null,
-    collection_count bigint default 0 not null,
+    fan_count          bigint default 0 not null,
+    collection_count   bigint default 0 not null,
     constraint user_pk
         primary key (user_id)
 );
@@ -25,29 +25,63 @@ create table user
  */
 create table lesson
 (
-    lesson_id bigint auto_increment,
-    name varchar(255) not null,
-    description varchar(255) not null,
-    uploader_id bigint not null,
-    cover_url varchar(255) not null,
-    source_type bool not null,
-    resource_url varchar(255) not null,
-    view_count bigint default 0 not null,
-    comment_count bigint default 0 not null,
+    lesson_id        bigint auto_increment,
+    name             varchar(255)     not null,
+    description      varchar(255)     not null,
+    uploader_id      bigint           not null,
+    cover_url        varchar(255)     not null,
+    source_type      bool             not null,
+    resource_url     varchar(255)     not null,
+    view_count       bigint default 0 not null,
+    comment_count    bigint default 0 not null,
     collection_count bigint default 0 not null,
-    like_count bigint default 0 not null,
-    score float default 0 not null,
-    upload_time bigint not null,
-    lesson_type bigint not null,
+    like_count       bigint default 0 not null,
+    score            float  default 0 not null,
+    upload_time      bigint           not null,
+    lesson_type      bigint           not null,
     constraint lesson_pk
         primary key (lesson_id)
 );
+/*
+ 评论表
+ */
+
+create table comment
+(
+    id               bigint auto_increment,
+    comment_id       bigint,
+    comment_content  varchar(255) not null,
+    comment_time     varchar(255) not null,
+    like_count       mediumtext   null,
+    reply_count      mediumtext   null,
+    commentator_id   mediumtext   null,
+    commentator_name varchar(255) null,
+    commentator_url  varchar(255) null,
+    constraint comment_pk
+        primary key (id)
+);
+/*
+ 回复表
+ */
+create table reply
+(
+    id            bigint auto_increment,
+    reply_id      bigint       not null,
+    reply_content varchar(255) not null,
+    reply_father  bigint       not null,
+    reply_time    varchar(255) not null,
+    like_count    bigint       not null,
+    replier_id    bigint       not null,
+    constraint reply_pk
+        primary key (id)
+);
+
 /*
  资源标签表
  */
 create table resource_labels
 (
-    resource_id bigint not null,
+    resource_id    bigint       not null,
     resource_label varchar(255) not null,
     constraint resource_labels_pk
         primary key (resource_id)
@@ -57,17 +91,17 @@ create table resource_labels
  */
 create table post
 (
-    post_id bigint auto_increment,
-    post_name varchar(255) not null,
-    post_content varchar(255) not null,
-    uploader_id bigint not null,
-    source_type bool not null,
-    view_count bigint default 0 not null,
-    comment_count bigint default 0 not null,
+    post_id          bigint auto_increment,
+    post_name        varchar(255)     not null,
+    post_content     text             not null,
+    uploader_id      bigint           not null,
+    source_type      bool             not null,
+    view_count       bigint default 0 not null,
+    comment_count    bigint default 0 not null,
     collection_count bigint default 0 not null,
-    like_count bigint default 0 not null,
-    upload_time bigint not null,
-    post_type bigint not null,
+    like_count       bigint default 0 not null,
+    upload_time      bigint           not null,
+    post_type        bigint           not null,
     constraint post_pk
         primary key (post_id)
 );
@@ -76,19 +110,19 @@ create table post
  */
 create table stvd
 (
-    stvd_id bigint auto_increment,
-    title varchar(255) not null,
-    description varchar(255) not null,
-    uploader_id bigint not null,
-    cover_url varchar(255) not null,
-    source_type bool not null,
-    resource_url varchar(255) not null,
-    view_count bigint default 0 not null,
-    comment_count bigint default 0 not null,
+    stvd_id          bigint auto_increment,
+    title            varchar(255)     not null,
+    description      varchar(255)     not null,
+    uploader_id      bigint           not null,
+    cover_url        varchar(255)     not null,
+    source_type      bool             not null,
+    resource_url     varchar(255)     not null,
+    view_count       bigint default 0 not null,
+    comment_count    bigint default 0 not null,
     collection_count bigint default 0 not null,
-    like_count bigint default 0 not null,
-    upload_time bigint not null,
-    stvd_type bigint not null,
+    like_count       bigint default 0 not null,
+    upload_time      bigint           not null,
+    stvd_type        bigint           not null,
     constraint stvd_pk
         primary key (stvd_id)
 );
@@ -96,8 +130,8 @@ create table stvd
 create table user_fan
 (
     user_id bigint not null,
-    fan_id bigint not null,
-    id bigint auto_increment,
+    fan_id  bigint not null,
+    id      bigint auto_increment,
     constraint user_fan_pk
         primary key (id)
 );
@@ -114,23 +148,23 @@ create table `admin`
 # 每日数据统计
 create table statistics
 (
-    statistics_id bigint auto_increment,
-    user_count_all bigint not null,
+    statistics_id      bigint auto_increment,
+    user_count_all     bigint not null,
     resource_count_all bigint not null,
-    view_count_all bigint not null,
-    user_count_new int not null,
+    view_count_all     bigint not null,
+    user_count_new     int    not null,
     resource_count_new bigint not null,
-    view_count_new bigint not null,
-    date date not null,
+    view_count_new     bigint not null,
+    date               date   not null,
     constraint statistics_pk
         primary key (statistics_id)
 );
 # 资源表
 create table resource
 (
-    id bigint auto_increment,
-    url varchar(255) not null,
-    up_id bigint not null,
+    id    bigint auto_increment,
+    url   varchar(255) not null,
+    up_id bigint       not null,
     constraint resource_pk
         primary key (id)
 );
