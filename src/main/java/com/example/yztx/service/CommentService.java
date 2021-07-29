@@ -28,12 +28,14 @@ public class CommentService {
 
     /**
      * 分页获取评论附带回复列表
-     * @param id 评论id
+     *
+     * @param id       评论id
+     * @param type     课程/贴子/短视频
      * @param pageable 分页参数
      * @return SimpleMsg
      */
-    public SimpleMsg getCommentsAndRepliesById(Long id, Pageable pageable) {
-        Page<Comment> comments = commentRepository.findById(id, pageable);
+    public SimpleMsg getCommentsAndRepliesById(Long id, int type, Pageable pageable) {
+        Page<Comment> comments = commentRepository.findByIdAndType(id, type, pageable);
         comments.getContent().forEach(comment -> {
             Page<Reply> replies = replyRepository.findByReplyFather(id, PageRequest.of(0, 3, Sort.Direction.ASC, "id"));
             replies.getContent().forEach(reply -> {
@@ -55,12 +57,14 @@ public class CommentService {
 
     /**
      * 分页获取评论列表
+     *
      * @param commentId 评论id对应资源id
-     * @param pageable 设置分页参数
+     * @param type      课程/贴子/短视频
+     * @param pageable  设置分页参数
      * @return SimpleMsg
      */
-    public SimpleMsg getComments(Long commentId, Pageable pageable){
-        Page<Comment> comments = commentRepository.findById(commentId, pageable);
+    public SimpleMsg getComments(Long commentId, int type, Pageable pageable) {
+        Page<Comment> comments = commentRepository.findByIdAndType(commentId, type, pageable);
         comments.getContent().forEach(comment -> {
             User user = userRepository.findUserByUserId(comment.commentator_id);
             if (user == null) {
@@ -71,21 +75,23 @@ public class CommentService {
                 comment.commentator_url = user.avatar_url;
             }
         });
-        return new SimpleMsg(StatusType.SUCCESSFUL,comments);
+        return new SimpleMsg(StatusType.SUCCESSFUL, comments);
     }
+
     /**
      * 分页获取回复列表
+     *
      * @param fatherId 父评论id
      * @param pageable 设置分页参数
      * @return SimpleMsg
      */
-    public SimpleMsg getReplies(Long fatherId,Pageable pageable){
+    public SimpleMsg getReplies(Long fatherId, Pageable pageable) {
         Page<Reply> replies = replyRepository.findByReplyFather(fatherId, pageable);
         replies.getContent().forEach(reply -> {
             User user = userRepository.findUserByUserId(reply.replier_id);
             reply.replier_name = user == null ? "用户不存在" : user.user_name;
-            reply.replier_url = user == null ? DefaultValues.DEFAULT_AVATAR: user.avatar_url;
+            reply.replier_url = user == null ? DefaultValues.DEFAULT_AVATAR : user.avatar_url;
         });
-        return new SimpleMsg(StatusType.SUCCESSFUL,replies);
+        return new SimpleMsg(StatusType.SUCCESSFUL, replies);
     }
 }

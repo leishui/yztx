@@ -10,6 +10,7 @@ public class Comment
 {
     @Id
     public long id;
+    public int type;
     public long comment_id;
     public String comment_content;
     public long comment_time;
