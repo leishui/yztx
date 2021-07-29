@@ -13,4 +13,5 @@ public interface UserRepository extends CrudRepository<User,Long> {
     //查询手机号、账号是否已被绑定
     User findUserByPhone(long phone);
     User findUserByAccount(String account);
+    User findUserByUserId(Long id);
 }

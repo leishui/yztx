@@ -20,6 +20,7 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
     private RedisUtils redisUtils;
 
 
@@ -30,7 +31,6 @@ public class UserController {
      * @description 用户注册
      * @method post
      * @url user/sign_in
-     * @param account  必选 String 账号
      * @param password 必选 String 密码
      * @param phone    必选 Long 手机号
      * @param code     必选 int 验证码
@@ -39,7 +39,7 @@ public class UserController {
      * @return_param msg String 成功则返回注册成功，失败则返回失败原因
      */
     @PostMapping(path = "/user/sign_in")
-    SimpleMsg sign_in(@RequestParam(value = "account") String account,
+    SimpleMsg sign_in(
                       @RequestParam(value = "password") String password,
                       @RequestParam(value = "phone") long phone,
                       @RequestParam(value = "code") int code) {
@@ -47,15 +47,13 @@ public class UserController {
         String s = redisUtils.get(String.valueOf(phone));
         if (s == null) return new SimpleMsg(StatusType.FAILED, "注册失败：验证码失效");
         if (code == Integer.parseInt(s)) {
-            if (userService.isAccountSaved(account))
-                return new SimpleMsg(StatusType.FAILED, "注册失败：账号已存在");
             User user = new User();
-            user.account = account;
+            user.account = String.valueOf(phone);
             user.password = password;
             user.phone = phone;
             user.avatar_url = DefaultValues.DEFAULT_AVATAR;
             user.identity = UserIdentity.NORMAL;
-            user.user_name = "用户" + account;
+            user.user_name = "用户" + phone;
             if (userService.save(user)) {
                 return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功");
             } else
