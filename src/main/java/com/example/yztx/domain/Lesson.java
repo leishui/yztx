@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Lesson
 {
     @Id
-    public long lesson_id;
+    public long lessonId;
     public String name;
     public String description;
     public long uploader_id;
