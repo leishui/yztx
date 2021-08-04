@@ -9,10 +9,9 @@ public class Reply {
 
     @Id
     public long id;
-    public long reply_id;
     public String reply_content;
-    public long replyFather;
     public long reply_time;
+    public long replyFather;
     public long like_count;
     public long replier_id;
     @Transient

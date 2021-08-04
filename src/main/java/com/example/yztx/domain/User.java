@@ -13,7 +13,7 @@ public class User {
     public long phone;
     public int identity;
     public String avatar_url;
-    public String email;
+    public String des;
     public long wallet;
     public long subscription_count;
     public long fan_count;

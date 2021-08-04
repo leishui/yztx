@@ -25,7 +25,32 @@ public class CommentService {
     ReplyRepository replyRepository;
     @Resource
     UserRepository userRepository;
-
+    /**
+     * 发起评论
+     * 
+     * @return SimpleMsg
+     */
+public SimpleMsg saveComment(Comment comment){
+    try {
+        commentRepository.save(comment);
+        return new SimpleMsg(StatusType.SUCCESSFUL, "存储成功");
+    } catch (Exception e) {
+        return new SimpleMsg(StatusType.ERROR_MYSQL, "上传失败，数据库错误");
+    }
+}
+    /**
+     * 发起回复
+     *
+     * @return SimpleMsg
+     */
+    public  SimpleMsg saveReply(Reply reply){
+        try {
+            replyRepository.save(reply);
+            return new SimpleMsg(StatusType.SUCCESSFUL, "存储成功");
+        } catch (Exception e) {
+            return new SimpleMsg(StatusType.ERROR_MYSQL, "上传失败，数据库错误");
+        }
+    }
     /**
      * 分页获取评论附带回复列表
      *
@@ -94,4 +119,7 @@ public class CommentService {
         });
         return new SimpleMsg(StatusType.SUCCESSFUL, replies);
     }
+
+
+
 }
