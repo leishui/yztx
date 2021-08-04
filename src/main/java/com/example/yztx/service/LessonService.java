@@ -4,6 +4,7 @@ import com.example.yztx.constant.StatusType;
 import com.example.yztx.domain.Lesson;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.repository.LessonRepository;
+import com.example.yztx.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,8 @@ import javax.annotation.Resource;
 public class LessonService {
     @Resource
     private LessonRepository lessonRepository;
+    @Resource
+    private UserRepository userRepository;
 
     //存储与更新
     public SimpleMsg save(Lesson lesson) {
@@ -34,7 +37,11 @@ public class LessonService {
     }
 
     public SimpleMsg getByPage(int page, int size) {
-        return new SimpleMsg(StatusType.SUCCESSFUL, lessonRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "lessonId")));
+        Page<Lesson> lessons = lessonRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "lessonId"));
+        for (Lesson lesson : lessons) {
+            lesson.user = userRepository.findUserByUserId(lesson.uploader_id);
+        }
+        return new SimpleMsg(StatusType.SUCCESSFUL, lessons);
     }
 
 }
