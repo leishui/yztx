@@ -47,6 +47,7 @@ public class CommentController {
         return commentService.getCommentsAndRepliesById(comment_id, type,
                 PageRequest.of(page, size, Sort.Direction.ASC, "id"));
     }
+
     /**
      * showdoc
      *
@@ -58,12 +59,12 @@ public class CommentController {
      * @title 获取包含回复的评论列表
      * @description 发表评论
      * @method post
-     * @url comment/sava_comments
+     * @url comment/save_comment
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回评论数据，失败则返回失败原因
      * @remark 此接口返回的回复列表中有用户头像地址
      */
-    @PostMapping("/comment/sava_comments")
+    @PostMapping("/comment/save_comment")
     @ResponseBody
     public SimpleMsg saveComments(@RequestParam("comment_id") Long comment_id,
                                   @RequestParam("content") String content,
@@ -73,10 +74,10 @@ public class CommentController {
 
         Comment comment = new Comment();
         comment.comment_time = Utils.getTimeStamp();
-        comment.comment_id = comment_id;
+        comment.commentId = comment_id;
         comment.comment_content = content;
         comment.type = type;
-        comment.commentator_id=user_id;
+        comment.commentator_id = user_id;
 
 
         return commentService.saveComment(comment);
@@ -110,8 +111,6 @@ public class CommentController {
     }
 
 
-
-
     /**
      * showdoc
      *
@@ -140,22 +139,21 @@ public class CommentController {
     }
 
 
-    @PostMapping("/comment/sava_reply")
+    @PostMapping("/comment/save_reply")
     @ResponseBody
     public SimpleMsg saveReply(@RequestParam("reply_id") Long reply_id,
                                @RequestParam("reply_content") String reply_content,
                                @RequestParam("replier_id") Long user_id,
-                               @RequestParam("replyFather")Long replyFather) {
+                               @RequestParam("replyFather") Long replyFather) {
 
 
         Reply reply = new Reply();
         reply.reply_time = Utils.getTimeStamp();
         reply.id = reply_id;
-        reply.replier_id=user_id;
-        reply.reply_content =reply_content;
-        reply.replyFather=replyFather;
-
+        reply.replier_id = user_id;
+        reply.reply_content = reply_content;
+        reply.replyFather = replyFather;
         return commentService.saveReply(reply);
-}
+    }
 }
 
