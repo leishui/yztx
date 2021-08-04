@@ -22,6 +22,7 @@ public class Lesson
     public float score;
     public long upload_time;
     public long lesson_type;
+    public long lessonSetId;
     @Transient
     public User user;
 }
