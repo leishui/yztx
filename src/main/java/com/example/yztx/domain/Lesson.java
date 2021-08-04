@@ -2,6 +2,7 @@ package com.example.yztx.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Lesson
@@ -21,4 +22,6 @@ public class Lesson
     public float score;
     public long upload_time;
     public long lesson_type;
+    @Transient
+    public User user;
 }
