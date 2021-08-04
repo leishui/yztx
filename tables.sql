@@ -52,9 +52,9 @@ create table comment
     comment_id       bigint,
     comment_content  varchar(255) not null,
     comment_time     varchar(255) not null,
-    like_count       mediumtext   null,
-    reply_count      mediumtext   null,
-    commentator_id   mediumtext   null,
+    like_count       bigint   null,
+    reply_count      bigint   null,
+    commentator_id   bigint   null,
     commentator_name varchar(255) null,
     commentator_url  varchar(255) null,
     constraint comment_pk

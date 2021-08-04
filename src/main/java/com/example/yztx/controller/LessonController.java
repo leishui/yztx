@@ -5,6 +5,7 @@ import com.example.yztx.domain.Lesson;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.LessonService;
 import com.example.yztx.utils.Utils;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -85,7 +86,7 @@ public class LessonController {
                                 @RequestParam("source_type") boolean source_type,
                                 @RequestParam("lesson_type") Long lesson_type) {
         Lesson lesson = lessonService.getById(id);
-        lesson.lesson_id = id;
+        lesson.lessonId = id;
         lesson.name = name;
         lesson.resource_url = res_url;
         lesson.description = des;
@@ -94,6 +95,13 @@ public class LessonController {
         lesson.lesson_type = lesson_type;
         lesson.upload_time = Utils.getTimeStamp();
         return lessonService.save(lesson);
+    }
+
+    @GetMapping("/lesson/get")
+    @ResponseBody
+    public SimpleMsg getByPage(@RequestParam("page") int page,
+                                  @RequestParam("size") int size) {
+        return lessonService.getByPage(page,size);
     }
 
 }

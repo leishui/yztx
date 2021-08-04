@@ -4,6 +4,9 @@ import com.example.yztx.constant.StatusType;
 import com.example.yztx.domain.Lesson;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.repository.LessonRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,6 +31,10 @@ public class LessonService {
         if (lessonRepository.findById(id).isPresent())
             return lessonRepository.findById(id).get();
         return null;
+    }
+
+    public SimpleMsg getByPage(int page, int size) {
+        return new SimpleMsg(StatusType.SUCCESSFUL, lessonRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "lessonId")));
     }
 
 }
