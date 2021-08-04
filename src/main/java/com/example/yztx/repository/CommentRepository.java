@@ -13,6 +13,6 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
     //查询评论列表
     Page<Comment> findById(Long id, Pageable pageable);
 
-    Page<Comment> findByIdAndType(Long id, int type, Pageable pageable);
+    Page<Comment> findByCommentIdAndType(Long id, int type, Pageable pageable);
 
 }
