@@ -35,9 +35,9 @@ public class CommentService {
      * @return SimpleMsg
      */
     public SimpleMsg getCommentsAndRepliesById(Long id, int type, Pageable pageable) {
-        Page<Comment> comments = commentRepository.findByIdAndType(id, type, pageable);
+        Page<Comment> comments = commentRepository.findByCommentIdAndType(id, type, pageable);
         comments.getContent().forEach(comment -> {
-            Page<Reply> replies = replyRepository.findByReplyFather(id, PageRequest.of(0, 3, Sort.Direction.ASC, "id"));
+            Page<Reply> replies = replyRepository.findByReplyFather(comment.id, PageRequest.of(0, 3, Sort.Direction.ASC, "id"));
             replies.getContent().forEach(reply -> {
                 User user = userRepository.findUserByUserId(reply.replier_id);
                 reply.replier_name = user == null ? "用户不存在" : user.user_name;
@@ -64,7 +64,7 @@ public class CommentService {
      * @return SimpleMsg
      */
     public SimpleMsg getComments(Long commentId, int type, Pageable pageable) {
-        Page<Comment> comments = commentRepository.findByIdAndType(commentId, type, pageable);
+        Page<Comment> comments = commentRepository.findByCommentIdAndType(commentId, type, pageable);
         comments.getContent().forEach(comment -> {
             User user = userRepository.findUserByUserId(comment.commentator_id);
             if (user == null) {
