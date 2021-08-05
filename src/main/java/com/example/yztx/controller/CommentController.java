@@ -70,16 +70,12 @@ public class CommentController {
                                   @RequestParam("content") String content,
                                   @RequestParam("user_id") Long user_id,
                                   @RequestParam("type") int type) {
-
-
         Comment comment = new Comment();
         comment.comment_time = Utils.getTimeStamp();
         comment.commentId = comment_id;
         comment.comment_content = content;
         comment.type = type;
         comment.commentator_id = user_id;
-
-
         return commentService.saveComment(comment);
     }
 

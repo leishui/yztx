@@ -55,7 +55,7 @@ public class UserController {
             user.identity = UserIdentity.NORMAL;
             user.user_name = "用户" + phone;
             if (userService.save(user)) {
-                return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功");
+                return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功",userService.getByPhone(phone));
             } else
                 return new SimpleMsg(StatusType.ERROR_MYSQL, "注册失败");
         }
@@ -128,11 +128,11 @@ public class UserController {
             redisUtils.add(String.valueOf(phone), code);
         } catch (Exception e) {
             msg.setStatus(StatusType.ERROR_REDIS);
-            msg.setMsg("redis数据插入失败");
+            msg.setContent("redis数据插入失败");
             return msg;
         }
         msg.setStatus(StatusType.SUCCESSFUL);
-        msg.setMsg(code);
+        msg.setContent(code);
         return msg;
     }
 
@@ -152,7 +152,7 @@ public class UserController {
     @GetMapping(path = "/user/get_info")
     SimpleMsg getInfo(@RequestParam(value = "id") Long id){
         if(userService.getUserById(id).isPresent())
-            return new SimpleMsg(StatusType.SUCCESSFUL,userService.getUserById(id).get());
+            return new SimpleMsg(StatusType.SUCCESSFUL,"登录成功",userService.getUserById(id).get());
         return new SimpleMsg(StatusType.FAILED,"用户不存在");
     }
 

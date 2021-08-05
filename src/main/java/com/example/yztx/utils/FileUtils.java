@@ -87,7 +87,7 @@ public class FileUtils {
         Resource resource = new Resource();
         if (file.isEmpty()) {
             msg.setStatus(StatusType.FAILED);
-            msg.setMsg("上传文件为空");
+            msg.setContent("上传文件为空");
             return msg;
         }
         try {
@@ -107,7 +107,7 @@ public class FileUtils {
             return resourceService.save(resource);
         } catch (IOException e) {
             msg.setStatus(StatusType.FAILED);
-            msg.setMsg("上传失败，io异常");
+            msg.setContent("上传失败，io异常");
         }
         return msg;
     }
