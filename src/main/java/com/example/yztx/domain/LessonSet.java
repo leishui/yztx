@@ -3,27 +3,24 @@ package com.example.yztx.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
+import java.util.ArrayList;
 
 @Entity
-public class Lesson
-{
+public class LessonSet {
     @Id
-    public long lessonId;
-    public String name;
+    public long id;
+    public int lessonCount;
+    public long upId;
+    public long upTime;
+    public int lessonType;
+    public String title;
     public String description;
-    public long uploader_id;
     public String cover_url;
-    public boolean source_type;
-    public String resource_url;
     public long view_count;
     public long comment_count;
     public long collection_count;
     public long like_count;
-    public float score;
-    public long upload_time;
-    public long lesson_type;
-    public long lessonSetId;
-    public String time_long;
+    public Float score;
     @Transient
-    public User user;
+    public ArrayList<Lesson> lessons;
 }

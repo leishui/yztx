@@ -2,8 +2,10 @@ package com.example.yztx.service;
 
 import com.example.yztx.constant.StatusType;
 import com.example.yztx.domain.Lesson;
+import com.example.yztx.domain.LessonSet;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.repository.LessonRepository;
+import com.example.yztx.repository.LessonSetRepository;
 import com.example.yztx.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 @Service
 public class LessonService {
@@ -18,6 +21,8 @@ public class LessonService {
     private LessonRepository lessonRepository;
     @Resource
     private UserRepository userRepository;
+    @Resource
+    private LessonSetRepository lessonSetRepository;
 
     //存储与更新
     public SimpleMsg save(Lesson lesson) {
@@ -42,6 +47,17 @@ public class LessonService {
             lesson.user = userRepository.findUserByUserId(lesson.uploader_id);
         }
         return new SimpleMsg(StatusType.SUCCESSFUL, lessons);
+    }
+    public SimpleMsg getSetByPage(int page,int size){
+        Page<LessonSet> lessonSets = lessonSetRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "id"));
+        for (LessonSet lessonSet : lessonSets) {
+            ArrayList<Lesson> lessons = lessonRepository.findAllByLessonSetId(lessonSet.id);
+            for (Lesson lesson : lessons) {
+                lesson.user = userRepository.findUserByUserId(lesson.uploader_id);
+            }
+            lessonSet.lessons = lessons;
+        }
+        return new SimpleMsg(StatusType.SUCCESSFUL, lessonSets);
     }
 
 }

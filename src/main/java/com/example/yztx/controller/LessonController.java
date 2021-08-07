@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
-
+@CrossOrigin
 @RestController
 public class LessonController {
 
@@ -102,6 +102,13 @@ public class LessonController {
     public SimpleMsg getByPage(@RequestParam("page") int page,
                                   @RequestParam("size") int size) {
         return lessonService.getByPage(page,size);
+    }
+
+    @GetMapping("/lesson/get_set")
+    @ResponseBody
+    public SimpleMsg getSetByPage(@RequestParam("page") int page,
+                               @RequestParam("size") int size) {
+        return lessonService.getSetByPage(page,size);
     }
 
 }

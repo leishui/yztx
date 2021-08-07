@@ -8,14 +8,12 @@ import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.UserService;
 import com.example.yztx.utils.RedisUtils;
 import com.example.yztx.utils.Utils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Resource
@@ -23,6 +21,11 @@ public class UserController {
     @Resource
     private RedisUtils redisUtils;
 
+
+    @GetMapping("/user/get_all")
+    SimpleMsg getAll(){
+        return new SimpleMsg(StatusType.SUCCESSFUL,"获取成功",userService.getAll());
+    }
 
     /**
      * showdoc
@@ -51,6 +54,7 @@ public class UserController {
             user.account = String.valueOf(phone);
             user.password = password;
             user.phone = phone;
+            user.des = "";
             user.avatar_url = DefaultValues.DEFAULT_AVATAR;
             user.identity = UserIdentity.NORMAL;
             user.user_name = "用户" + phone;
@@ -128,11 +132,11 @@ public class UserController {
             redisUtils.add(String.valueOf(phone), code);
         } catch (Exception e) {
             msg.setStatus(StatusType.ERROR_REDIS);
-            msg.setContent("redis数据插入失败");
+            msg.setMsg("redis数据插入失败");
             return msg;
         }
         msg.setStatus(StatusType.SUCCESSFUL);
-        msg.setContent(code);
+        msg.setMsg(code);
         return msg;
     }
 

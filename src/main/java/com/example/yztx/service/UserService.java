@@ -5,6 +5,7 @@ import com.example.yztx.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,7 @@ public class UserService {
             return false;
         }
     }
+    public Iterator<User> getAll(){return userRepository.findAll().iterator();}
 
     public Optional<User> getUserById(Long userId){
         return userRepository.findById(userId);
