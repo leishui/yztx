@@ -1,5 +1,8 @@
 package com.example.yztx.domain;
 
+import com.example.yztx.constant.DefaultValues;
+import com.example.yztx.constant.Paths;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,6 +15,6 @@ public class Resource {
 
     @Override
     public String toString() {
-        return "?id=" + up_id + "&name=" + url;
+        return DefaultValues.DEFAULT_RESOURCE_SERVER + "?id=" + up_id + "&name=" + url;
     }
 }

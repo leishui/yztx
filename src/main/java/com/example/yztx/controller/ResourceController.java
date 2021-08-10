@@ -55,5 +55,10 @@ public class ResourceController {
         FileUtils.getFile(file,response,request);
         //FileUtils.getFile(id, name, response);
     }
+    @PostMapping(value = "/resource/upload_files")
+    @ResponseBody
+    public SimpleMsg uploadFiles(@RequestParam("files") MultipartFile[] files, @RequestParam("up_id") Long up_id) {
+        return FileUtils.uploadFiles(files,up_id,resourceService);
+    }
 
 }

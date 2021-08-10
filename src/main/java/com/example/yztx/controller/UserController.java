@@ -58,7 +58,8 @@ public class UserController {
             user.phone = phone;
             user.des = "";
             user.avatar_url = DefaultValues.DEFAULT_AVATAR;
-            user.identity = UserIdentity.NORMAL;
+            user.identity = identity;
+            user.date = date;
             user.user_name = "用户" + phone;
             if (userService.save(user)) {
                 return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功",userService.getByPhone(phone));

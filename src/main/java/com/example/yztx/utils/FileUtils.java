@@ -11,7 +11,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Objects;
 
 public class FileUtils {
@@ -87,7 +89,7 @@ public class FileUtils {
         Resource resource = new Resource();
         if (file.isEmpty()) {
             msg.setStatus(StatusType.FAILED);
-            msg.setContent("上传文件为空");
+            msg.setMsg("上传文件为空");
             return msg;
         }
         try {
@@ -301,4 +303,13 @@ public class FileUtils {
 
     }
 
+    public static SimpleMsg uploadFiles(MultipartFile[] files, Long up_id, ResourceService resourceService) {
+        List<String> urls = new ArrayList<>();
+        SimpleMsg msg = new SimpleMsg(StatusType.SUCCESSFUL,"");
+        for (MultipartFile file : files) {
+            urls.add(uploadFile(file,up_id,resourceService).getMsg());
+        }
+        msg.setContent(urls);
+        return msg;
+    }
 }
