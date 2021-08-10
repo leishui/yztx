@@ -14,6 +14,7 @@ public class User {
     public int identity;
     public String avatar_url;
     public String des;
+    public long date;
     public long wallet;
     public long subscription_count;
     public long fan_count;

@@ -45,7 +45,9 @@ public class UserController {
     SimpleMsg sign_in(
                       @RequestParam(value = "password") String password,
                       @RequestParam(value = "phone") long phone,
-                      @RequestParam(value = "code") int code) {
+                      @RequestParam(value = "code") int code,
+                      @RequestParam("identity") int identity,
+                      @RequestParam("date") long date) {
         if (redisUtils == null) redisUtils = new RedisUtils();
         String s = redisUtils.get(String.valueOf(phone));
         if (s == null) return new SimpleMsg(StatusType.FAILED, "注册失败：验证码失效");
