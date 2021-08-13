@@ -31,21 +31,19 @@ public class CollectionController {
      * @title 发起收藏
      * @description 收藏
      * @method post
-     * @url collection/sava_collection
+     * @url collection/save_collection
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回收藏数据，失败则返回失败原因
      * @remark 此接口返回的收藏列表中无用户头像地址
      */
 
 
-    @PostMapping("/collection/sava_collection")
+    @PostMapping("/collection/save_collection")
     @ResponseBody
     public SimpleMsg saveCollection(@RequestParam("user_id") Long user_id,
                                   @RequestParam("user_name") String user_name,
                                   @RequestParam("type") Long type,
                                   @RequestParam("status") boolean status) {
-
-
         Collection collection = new Collection();
         collection.user_id=user_id;
         collection.status=status;
