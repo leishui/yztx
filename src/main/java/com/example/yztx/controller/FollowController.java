@@ -24,35 +24,26 @@ public class FollowController {
      *
      * @param to_id    必选 Long    关注对象id
      * @param from_id  必选 long  发起关注id
-     * @return {"status":200,"msg":{"content":[{"id":1,"comment_id":1,"comment_content":"1","comment_time":1111111,"like_count":1,"reply_count":1,"commentator_id":1,"commentator_name":"用户111","commentator_url":"1","replies":{"content":[{"id":1,"reply_id":1,"reply_content":"222","replyFather":1,"reply_time":1,"like_count":1,"replier_id":1,"replier_name":"用户111","replier_url":null}],"pageable":{"sort":{"sorted":true,"unsorted":false,"empty":false},"offset":0,"pageNumber":0,"pageSize":5,"unpaged":false,"paged":true},"totalElements":1,"totalPages":1,"last":true,"size":5,"number":0,"sort":{"sorted":true,"unsorted":false,"empty":false},"numberOfElements":1,"first":true,"empty":false}}],"pageable":{"sort":{"sorted":true,"unsorted":false,"empty":false},"offset":0,"pageNumber":0,"pageSize":5,"unpaged":false,"paged":true},"totalElements":1,"totalPages":1,"last":true,"size":5,"number":0,"sort":{"sorted":true,"unsorted":false,"empty":false},"numberOfElements":1,"first":true,"empty":false}}
+     * @return {"status":200,"msg":"存储成功","content":null}
      * @catalog 与子同行/关注
      * @title 发起关注
      * @description 关注
      * @method post
-     * @url follow/sava_follow
+     * @url follow/save_follow
      * @return_param status int 成功与否
-     * @return_param msg String 成功则返回关注数据，失败则返回失败原因
+     * @return_param msg String 成功则返回存储成功，失败则返回失败原因
      */
 
 
-    @PostMapping("/follow/sava_follow")
+    @PostMapping("/follow/save_follow")
     @ResponseBody
     public SimpleMsg saveCollection(@RequestParam("to_id") Long to_id,
-                                    @RequestParam("from_id") Long from_id,
-                                    @RequestParam("user_name") String user_name,
-                                    @RequestParam("avatar_url") String avatar_url,
-                                    @RequestParam("des")String des,
-                                    @RequestParam("identity")int identity) {
+                                    @RequestParam("from_id") Long from_id) {
 
 
         Follow follow = new Follow();
-        User user = new User();
         follow.to_id=to_id;
         follow.from_id=from_id;
-        user.user_name=user_name;
-        user.avatar_url=avatar_url;
-        user.des=des;
-
         return followService.saveFollow(follow);
     }
 

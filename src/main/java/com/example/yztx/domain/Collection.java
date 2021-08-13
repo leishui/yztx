@@ -9,7 +9,6 @@ public class Collection {
 public long user_id;
 public long creat_time;
 public String user_name;
-public String user_url;
 public long type;
 public boolean status;
 }

@@ -23,31 +23,32 @@ public class UserController {
 
 
     @GetMapping("/user/get_all")
-    SimpleMsg getAll(){
-        return new SimpleMsg(StatusType.SUCCESSFUL,"获取成功",userService.getAll());
+    SimpleMsg getAll() {
+        return new SimpleMsg(StatusType.SUCCESSFUL, "获取成功", userService.getAll());
     }
 
     /**
      * showdoc
+     *
+     * @param password 必选 String 密码
+     * @param phone    必选 Long 手机号
+     * @param code     必选 int 验证码
+     * @return {"status":200,"msg":"注册成功","content":null}
      * @catalog 与子同行/用户
      * @title 注册
      * @description 用户注册
      * @method post
      * @url user/sign_in
-     * @param password 必选 String 密码
-     * @param phone    必选 Long 手机号
-     * @param code     必选 int 验证码
-     * @return {"status":200,"msg":"注册成功"}
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回注册成功，失败则返回失败原因
      */
     @PostMapping(path = "/user/sign_in")
     SimpleMsg sign_in(
-                      @RequestParam(value = "password") String password,
-                      @RequestParam(value = "phone") long phone,
-                      @RequestParam(value = "code") int code,
-                      @RequestParam("identity") int identity,
-                      @RequestParam("date") long date) {
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "phone") long phone,
+            @RequestParam(value = "code") int code,
+            @RequestParam("identity") int identity,
+            @RequestParam("date") long date) {
         if (redisUtils == null) redisUtils = new RedisUtils();
         String s = redisUtils.get(String.valueOf(phone));
         if (s == null) return new SimpleMsg(StatusType.FAILED, "注册失败：验证码失效");
@@ -62,7 +63,7 @@ public class UserController {
             user.date = date;
             user.user_name = "用户" + phone;
             if (userService.save(user)) {
-                return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功",userService.getByPhone(phone));
+                return new SimpleMsg(StatusType.SUCCESSFUL, "注册成功", userService.getByPhone(phone));
             } else
                 return new SimpleMsg(StatusType.ERROR_MYSQL, "注册失败");
         }
@@ -71,14 +72,15 @@ public class UserController {
 
     /**
      * showdoc
+     *
+     * @param account  必选 String 账号
+     * @param password 必选 String 密码
+     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @catalog 与子同行/用户
      * @title 账号登录
      * @description 账号登录
      * @method post
      * @url user/login_by_account
-     * @param account 必选 String 账号
-     * @param password 必选 String 密码
-     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @return_param status int 成功与否
      * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
@@ -92,16 +94,16 @@ public class UserController {
 
     /**
      * showdoc
+     *
+     * @param phone    必选 Long 手机号
+     * @param password 必选 String 密码
+     * @return {"status":200,"msg":null,"content":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @catalog 与子同行/用户
      * @title 手机号登录
      * @description 手机号登录
      * @method post
      * @url user/login_by_phone
-     * @param phone 必选 Long 手机号
-     * @param password 必选 String 密码
-     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @return_param status int 成功与否
-     * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @PostMapping(path = "/user/login_by_phone")
     SimpleMsg loginByAcc(@RequestParam(value = "phone") long phone,
@@ -113,22 +115,23 @@ public class UserController {
 
     /**
      * showdoc
+     *
+     * @param phone 必选 Long 手机号
+     * @return {"status":200,"msg":null,"content":"259311"}
      * @catalog 与子同行/用户
      * @title 获取验证码
      * @description 通过手机号获取验证码
      * @method get
      * @url /user/get_code
-     * @param phone 必选 Long 手机号
-     * @return {"status":200,"msg":"259311"}
      * @return_param status int 成功与否
-     * @return_param msg String 成功则返回验证码，失败则返回失败原因
+     * @return_param content String 成功则返回验证码，失败则返回失败原因
      * @remark 验证码有效时间60秒
      */
     @GetMapping(path = "/user/get_code")
     SimpleMsg getCode(@RequestParam(value = "phone") long phone) {
         SimpleMsg msg = new SimpleMsg();
-        if (userService.getByPhone(phone)!=null)
-            return new SimpleMsg(StatusType.FAILED,"手机号已被使用");
+        if (userService.getByPhone(phone) != null)
+            return new SimpleMsg(StatusType.FAILED, "手机号已被使用");
         if (redisUtils == null) redisUtils = new RedisUtils();
         String code = Utils.generateVerificationCode();
         try {
@@ -146,21 +149,22 @@ public class UserController {
 
     /**
      * showdoc
+     *
+     * @param id 必选 Long 用户id
+     * @return {"status":200,"msg":"登录成功","content":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @catalog 与子同行/用户
      * @title 获取用户信息
      * @description 通过用户id获取用户信息
      * @method get
      * @url /user/get_info
-     * @param id 必选 Long 用户id
-     * @return {"status":200,"msg":{"user_id":1,"user_name":"用户999","account":"999","password":"content","phone":10086,"identity":1,"avatar_url":"1","email":null,"wallet":0,"subscription_count":0,"fan_count":0,"collection_count":0}}
      * @return_param status int 成功与否
      * @return_param msg User/String 成功则返回用户信息，失败则返回失败原因
      */
     @GetMapping(path = "/user/get_info")
-    SimpleMsg getInfo(@RequestParam(value = "id") Long id){
-        if(userService.getUserById(id).isPresent())
-            return new SimpleMsg(StatusType.SUCCESSFUL,"登录成功",userService.getUserById(id).get());
-        return new SimpleMsg(StatusType.FAILED,"用户不存在");
+    SimpleMsg getInfo(@RequestParam(value = "id") Long id) {
+        if (userService.getUserById(id).isPresent())
+            return new SimpleMsg(StatusType.SUCCESSFUL, "登录成功", userService.getUserById(id).get());
+        return new SimpleMsg(StatusType.FAILED, "用户不存在");
     }
 
 

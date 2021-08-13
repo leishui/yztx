@@ -36,7 +36,7 @@ public class StvdController {
      * @param cover       必选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param stvd_type   必选 Long 短视频分类
-     * @return {"status":200,"msg":"存储成功"}
+     * @return {"status":200,"msg":"存储成功","content":null}
      * @catalog 与子同行/短视频
      * @title 上传短视频
      * @description 上传短视频
@@ -75,7 +75,7 @@ public class StvdController {
      * @param cover       必选 String 封面地址
      * @param source_type 必选 boolean 是否为原创
      * @param stvd_type   必选 Long 短视频分类
-     * @return {"status":200,"msg":"存储成功"}
+     * @return {"status":200,"msg":"存储成功","content":null}
      * @catalog 与子同行/短视频
      * @title 更新短视频信息
      * @description 更新短视频信息

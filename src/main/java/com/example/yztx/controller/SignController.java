@@ -1,7 +1,6 @@
 package com.example.yztx.controller;
 
 
-
 import com.example.yztx.domain.Sign;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.SignService;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 
 
@@ -17,13 +17,14 @@ public class SignController {
 
     @Resource
     SignService signService;
+
     /**
      * showdoc
      *
      * @param signer_id   必选 Long 签到者id
      * @param signer_name 必选 String 签到者账户名
      * @param signer_url  必选 String 签到者头像地址
-     * @return {"status":200,"msg":"存储成功"}
+     * @return {"status":200,"msg":"存储成功","content":null}
      * @catalog 与子同行/签到
      * @title 签到
      * @description 发起签到
@@ -32,7 +33,7 @@ public class SignController {
      * @return_param status int 成功与否
      * @return_param msg String 成功则返回存储成功，失败则返回失败原因
      */
-    @PostMapping( "/sign/upload")
+    @PostMapping("/sign/upload")
     @ResponseBody
     public SimpleMsg saveSign(
             @RequestParam("signer_url") String signer_url,
