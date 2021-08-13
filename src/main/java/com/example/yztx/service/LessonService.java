@@ -42,14 +42,14 @@ public class LessonService {
     }
 
     public SimpleMsg getByPage(int page, int size) {
-        Page<Lesson> lessons = lessonRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "lessonId"));
+        Page<Lesson> lessons = lessonRepository.findAll(PageRequest.of(page, size, Sort.Direction.DESC, "lessonId"));
         for (Lesson lesson : lessons) {
             lesson.user = userRepository.findUserByUserId(lesson.uploader_id);
         }
         return new SimpleMsg(StatusType.SUCCESSFUL, lessons);
     }
     public SimpleMsg getSetByPage(int page,int size){
-        Page<LessonSet> lessonSets = lessonSetRepository.findAll(PageRequest.of(page, size, Sort.Direction.ASC, "id"));
+        Page<LessonSet> lessonSets = lessonSetRepository.findAll(PageRequest.of(page, size, Sort.Direction.DESC, "id"));
         for (LessonSet lessonSet : lessonSets) {
             ArrayList<Lesson> lessons = lessonRepository.findAllByLessonSetId(lessonSet.id);
             for (Lesson lesson : lessons) {

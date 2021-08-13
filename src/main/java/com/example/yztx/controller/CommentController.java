@@ -45,7 +45,7 @@ public class CommentController {
                                            @RequestParam("page") int page,
                                            @RequestParam("size") int size) {
         return commentService.getCommentsAndRepliesById(comment_id, type,
-                PageRequest.of(page, size, Sort.Direction.ASC, "id"));
+                PageRequest.of(page, size, Sort.Direction.DESC, "id"));
     }
 
     /**
@@ -103,7 +103,7 @@ public class CommentController {
                                  @RequestParam("page") int page,
                                  @RequestParam("size") int size) {
         return commentService.getComments(comment_id, type,
-                PageRequest.of(page, size, Sort.Direction.ASC, "id"));
+                PageRequest.of(page, size, Sort.Direction.DESC, "id"));
     }
 
 
@@ -131,7 +131,7 @@ public class CommentController {
                                 @RequestParam("page") int page,
                                 @RequestParam("size") int size) {
         return commentService.getReplies(father_id,
-                PageRequest.of(page, size, Sort.Direction.ASC, "id"));
+                PageRequest.of(page, size, Sort.Direction.DESC, "id"));
     }
 
 

@@ -4,10 +4,7 @@ import com.example.yztx.domain.Post;
 import com.example.yztx.msg.SimpleMsg;
 import com.example.yztx.service.PostService;
 import com.example.yztx.utils.Utils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -39,17 +36,20 @@ public class PostController {
     @ResponseBody
     public SimpleMsg upload(@RequestParam("name") String name,
                             @RequestParam("content") String content,
+                            @RequestParam("resources") String resources,
                             @RequestParam("up_id") Long up_id,
                             @RequestParam("source_type") boolean source_type,
                             @RequestParam("post_type") Long post_type) {
-        Post lesson = new Post();
-        lesson.post_name = name;
-        lesson.post_content = content;
-        lesson.uploader_id = up_id;
-        lesson.source_type = source_type;
-        lesson.post_type = post_type;
-        lesson.upload_time = Utils.getTimeStamp();
-        return postService.save(lesson);
+        Post post = new Post();
+        post.post_name = name;
+        if (!resources.isEmpty())
+            post.post_resources = resources;
+        post.post_content = content;
+        post.uploader_id = up_id;
+        post.source_type = source_type;
+        post.post_type = post_type;
+        post.upload_time = Utils.getTimeStamp();
+        return postService.save(post);
     }
 
     /**
@@ -77,13 +77,19 @@ public class PostController {
                                 @RequestParam("source_type") boolean source_type,
                                 @RequestParam("post_type") Long post_type) {
         Post post = postService.getById(id);
-        post.post_id = id;
+        post.postId = id;
         post.post_name = name;
         post.post_content = content;
         post.source_type = source_type;
         post.post_type = post_type;
         post.upload_time = Utils.getTimeStamp();
         return postService.save(post);
+    }
+    @GetMapping("/post/get")
+    @ResponseBody
+    public SimpleMsg getByPage(@RequestParam("page") int page,
+                               @RequestParam("size") int size) {
+        return postService.getByPage(page,size);
     }
 
 }

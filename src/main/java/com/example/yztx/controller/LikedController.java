@@ -34,6 +34,7 @@ public class LikedController {
     @PostMapping( "/liked/upload")
     @ResponseBody
     public SimpleMsg saveLiked(
+            @RequestParam("resource_id")Long resource_id,
             @RequestParam("user_id") Long user_id,
             @RequestParam("type") int type,
             @RequestParam("status") boolean status,
