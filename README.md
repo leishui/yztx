@@ -1,8 +1,8 @@
-# 1、与子同行
+# 1、与子同行Java服务端后端
 
-## 1.1、服务器地址
+## 1.1、对应安卓客户端：
 
-<https://yztx.entergx.cn/>
+<https://github.com/leishui/yztx-android/>
 
 ## 1.1、用户
 
